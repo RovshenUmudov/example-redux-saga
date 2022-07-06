@@ -1,4 +1,5 @@
 import axios from "axios";
+import {IPost} from "../redux/reducers/postsReducer";
 
 const instance = () => {
     return axios.create({
@@ -7,7 +8,7 @@ const instance = () => {
 }
 
 const api = {
-    getPosts: (count) => instance().get(`posts?_limit=${count}`).then(res => res.data)
+    getPosts: (count: number) => instance().get<IPost>(`posts?_limit=${count}`).then(res => res.data)
 }
 
 export default api

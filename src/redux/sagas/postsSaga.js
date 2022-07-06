@@ -5,6 +5,7 @@ import api from "../../api";
 function* getPostsWorker() {
     try {
         const posts = yield api.getPosts(5)
+        console.log(posts);
         yield put({type: FETCH_POSTS_SUCCESS, payload: posts})
     } catch {
         yield put({type: FETCH_POSTS_ERROR, payload: "Error: Posts not loading"})

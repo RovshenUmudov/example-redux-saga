@@ -2,7 +2,7 @@ export const FETCH_POSTS = "FETCH_POSTS"
 export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS"
 export const FETCH_POSTS_ERROR = "FETCH_POSTS_ERROR"
 
-type Post = {
+export interface IPost {
     id: number,
     title: string,
     body: string
@@ -11,7 +11,7 @@ type Post = {
 type InitialState = {
     loading: boolean,
     error: string,
-    posts: Post[]
+    posts: IPost[]
 }
 
 type Action = {
