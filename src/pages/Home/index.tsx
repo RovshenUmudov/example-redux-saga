@@ -1,9 +1,10 @@
 import React from 'react';
 import {getPosts} from "../../redux/reducers/postsReducer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import { useTypedSelector } from '../../hooks/redux';
 
 const Home = () => {
-    const posts = useSelector((state: any) => state.postsReducer.posts)
+    const {posts} = useTypedSelector(state => state.posts)
     const dispatch = useDispatch()
 
     console.log(posts);
