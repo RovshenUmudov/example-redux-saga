@@ -7,14 +7,19 @@ const Home = () => {
     const {posts} = useTypedSelector(state => state.posts)
     const dispatch = useDispatch()
 
-    console.log(posts);
-
     return (
         <div>
             <button onClick={() => dispatch(getPosts())}>Load Posts</button>
             <br/>
             <br/>
-            <span>result in console</span>
+            {
+                posts.map(el => (
+                    <div key={el.id}>
+                        <h2>{el.title}</h2>
+                        <p>{el.body}</p>
+                    </div>
+                ))
+            }
         </div>
     );
 };
