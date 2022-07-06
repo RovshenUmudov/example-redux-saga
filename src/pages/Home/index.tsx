@@ -1,15 +1,23 @@
 import React from 'react';
-import {getPosts} from "../../redux/reducers/postsReducer";
+import {fetchPosts} from "../../redux/reducers/postsReducer";
 import {useDispatch} from "react-redux";
-import { useTypedSelector } from '../../hooks/redux';
+import {useTypedSelector} from '../../hooks/redux';
 
 const Home = () => {
-    const {posts} = useTypedSelector(state => state.posts)
+    const {posts, loading, error} = useTypedSelector(state => state.posts)
     const dispatch = useDispatch()
+
+    if (loading) {
+        return <h2>Loading...</h2>
+    }
+
+    if (error) {
+        return <h2>{error}</h2>
+    }
 
     return (
         <div>
-            <button onClick={() => dispatch(getPosts())}>Load Posts</button>
+            <button onClick={() => dispatch(fetchPosts())}>Load Posts</button>
             <br/>
             <br/>
             {

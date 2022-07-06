@@ -1,5 +1,6 @@
-export const GET_POSTS = "GET_POSTS"
-export const SET_POSTS = "SET_POSTS"
+export const FETCH_POSTS = "FETCH_POSTS"
+export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS"
+export const FETCH_POSTS_ERROR = "FETCH_POSTS_ERROR"
 
 type Post = {
     id: number,
@@ -8,6 +9,8 @@ type Post = {
 }
 
 type InitialState = {
+    loading: boolean,
+    error: string,
     posts: Post[]
 }
 
@@ -17,15 +20,33 @@ type Action = {
 }
 
 const initialState: InitialState = {
-    posts: []
+    posts: [],
+    loading: false,
+    error: ""
 }
 
 const postsReducer = (state = initialState, {type, payload}: Action): InitialState => {
     switch (type) {
-        case SET_POSTS: {
+        case FETCH_POSTS: {
             return {
                 ...state,
+                loading: true,
+            }
+        }
+        case FETCH_POSTS_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                error: "",
                 posts: payload
+            }
+        }
+        case FETCH_POSTS_ERROR: {
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+                posts: []
             }
         }
         default:
@@ -33,6 +54,6 @@ const postsReducer = (state = initialState, {type, payload}: Action): InitialSta
     }
 }
 
-export const getPosts = (): Action => ({type: GET_POSTS})
+export const fetchPosts = (): Action => ({type: FETCH_POSTS})
 
 export default postsReducer

@@ -1,16 +1,16 @@
 import {takeLatest, put} from "redux-saga/effects"
-import {GET_POSTS, SET_POSTS} from "../reducers/postsReducer";
+import {FETCH_POSTS, FETCH_POSTS_ERROR, FETCH_POSTS_SUCCESS} from "../reducers/postsReducer";
 import api from "../../api";
 
 function* getPostsWorker() {
     try {
         const posts = yield api.getPosts(5)
-        yield put({type: SET_POSTS, payload: posts})
-    } catch (e) {
-        console.log(e.message);
+        yield put({type: FETCH_POSTS_SUCCESS, payload: posts})
+    } catch {
+        yield put({type: FETCH_POSTS_ERROR, payload: "Error: Posts not loading"})
     }
 }
 
 export function* getPostsWatcher() {
-    yield takeLatest(GET_POSTS, getPostsWorker)
+    yield takeLatest(FETCH_POSTS, getPostsWorker)
 }
